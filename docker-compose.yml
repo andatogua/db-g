@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  mysql:
+    image: mariadb:latest
+    container_name: samara-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+        MYSQL_DATABASE: ws_dycobank_ganansol
+        MYSQL_ROOT_PASSWORD: adtg0407
+        MYSQL_PASSWORD: adtg0407
+        MYSQL_USER: adtg
+    volumes:
+        - ./dockerfiles/mysql:/var/lib/mysql
+        - ./dockerfiles/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+        - hello
+
+networks:
+  hello:
+    name: db-ganansol-net
+    driver: bridge
